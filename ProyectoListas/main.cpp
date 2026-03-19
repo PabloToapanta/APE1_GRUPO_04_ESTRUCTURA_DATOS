@@ -146,23 +146,23 @@ public:
 			primero=0; //liberamos memoria
 			ultimo=0;
 			}else{//Hay mas nodos
-			Nodo<T>* curr2 = primero ->sig; //Nodo auxiliar que apunte al elemento siguiente
+			NodoDoble<T>* curr2 = primero ->sig; //Nodo auxiliar que apunte al elemento siguiente
 			primero->sig->ant=0;//reasignamos el anterior del nodo siguiente a cero
 			delete primero;//eliminamos el nodo primero
 			primero=curr2;//reasignamos el puntero primero
 			}
 		}else if(ultimo->info==valor){//Si el valor es el ultimo
-			Nodo<T> *curr3 = ultimo->ant;
+			NodoDoble <T> *curr3 = ultimo->ant;
         	ultimo->ant->sig=0;
         	delete ultimo;
         	ultimo=curr3;
     	}else{//El valor este en medio de la lista
 
-    		Nodo<T>* curr = primero;
+    		NodoDoble<T>* curr = primero;
     		while(curr!= 0 ){
     			if(curr->info == valor){
-    				Nodo<T>* prev = curr->ant;
-    				Nodo<T>* next = curr->sig;
+    				NodoDoble<T>* prev = curr->ant;
+    				NodoDoble<T>* next = curr->sig;
     				
     				prev->sig=next;
     				next->ant=prev;
@@ -189,7 +189,7 @@ public:
             return;
         }
 
-        Nodo<T>* curr = primero;
+        NodoDoble<T>* curr = primero;
         cout << "Inicio -> Fin: ";
         
         // Recorremos usando 'sig'
@@ -210,7 +210,7 @@ public:
             return;
         }
 
-        Nodo<T>* curr = ultimo;
+        NodoDoble<T>* curr = ultimo;
         cout << "Fin -> Inicio: ";
         
         // Recorremos usando 'ant'
@@ -250,14 +250,17 @@ int main() {
         cout << "1. Insertar cancion al INICIO" << endl;
         cout << "2. Insertar cancion al FINAL" << endl;
         cout << "3. Buscar cancion" << endl;
-        cout << "4. Ver Primero y Ultimo" << endl;
+        cout << "4. Eliminar cancion" << endl;
+        cout << "5. Mostrar de Inicio a Fin" << endl;
+        cout << "6. Mostrar de Fin a Inicio" << endl;
+        cout << "7. Ver Primero y Ultimo" << endl;
         cout << "0. Salir" << endl;
         cout << "Elija una opcion: ";
         cin >> opcion;
 
         if (cin.fail()) {
-            cin.clear(); // Limpia el error
-            fflush(stdin); // Limpia el buffer (importante en Dev-C++)
+            cin.clear(); 
+            fflush(stdin); 
             cout << "Error: Por favor, ingrese un numero valido para el menu." << endl;
             continue;
         }
@@ -265,7 +268,7 @@ int main() {
         switch (opcion) {
             case 1:
                 cout << "Nombre de la cancion: ";
-                fflush(stdin); // 
+                fflush(stdin); 
                 getline(cin, cancion);
                 miPlaylist.insertarInicio(cancion);
                 break;
@@ -289,6 +292,21 @@ int main() {
                 break;
 
             case 4:
+                cout << "Cancion a eliminar: ";
+                fflush(stdin);
+                getline(cin, cancion);
+                miPlaylist.eliminar(cancion);
+                break;
+
+            case 5:
+                miPlaylist.mostrarInicioAFin();
+                break;
+
+            case 6:
+                miPlaylist.mostrarFinAInicio();
+                break;
+
+            case 7:
                 miPlaylist.consultarPrimeroUltimo();
                 break;
 
