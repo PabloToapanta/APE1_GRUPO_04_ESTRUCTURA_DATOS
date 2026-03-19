@@ -97,16 +97,41 @@ public:
     }
 
     void insertarInicio(T valor) {
-        // TODO Equipo 2: Lógica aquí
-    }
+        NodoDoble<T>* nuevo = new NodoDoble<T>(valor); //Defino un espacio en memoria para el nodo doble
+        											   //el "*" indica que la variable nuevo sera un puntero
+    	if(primero == 0){	//Esta estructura de control valida si existe nodos en la lista, si no 
+    						//coloca al valor "nuevo" como head y tail
+    		primero = nuevo;
+    		ultimo = nuevo;
+		}else{
+			nuevo->sig = primero; //concatenamos a "nuevo" con el viejo primero
+			primero->ant = nuevo; //Ahora el viejo primero reconoce a "nuevo" como su antecesor
+			primero = nuevo; //como ultimo "nuevo" pasa a ser el primero en la fila
+		}
+	}
 
     void insertarFinal(T valor) {
-        // TODO Equipo 2: Lógica aquí
+        NodoDoble<T>* nuevo = new NodoDoble<T>(valor); //nuevamente se crea el espacio en memoria para el nodo doble
+        if(ultimo == 0){
+        	primero = nuevo;
+        	ultimo = nuevo;
+		} else{
+			nuevo->ant = ultimo; //el antecesor de nuevo sera ahora ultimo
+			ultimo->sig = nuevo; //asignamos a nuevo como lo que le sigue despues a ultimo
+			ultimo = nuevo; //ahora nuevo pasa a ser el nuevo ultimo
+			
+		}
     }
 
     bool buscar(T valor) {
-        // TODO Equipo 2: Lógica aquí
-        return false;
+        NodoDoble<T>* actual = primero; // creacion de un nodo que sirve para realizar el recorrido con el while
+        while(actual != 0){
+        	if(actual->info == valor){ //aqui pregunta si, actual es equivalente al valor que busco?
+        		return true; 		   //si es asi retornaria true
+			}
+			actual=actual->sig; //esta linea permite avanzar al siguiente nodo para que nuevamente compare
+		}        
+        return false; //Al recorrer toda la lista y no encontrar el valor a buscar se retorna "false"
     }
 
     void eliminar(T valor) {
@@ -136,10 +161,66 @@ public:
 // =====================================================================
 
 int main() {
-    cout << "=== GESTOR DE PLAYLISTS MUSICALES ===" << endl;
+    ListaDoble<string> miPlaylist;
+    int opcion;
+    string cancion;
 
+    do {
+        cout << "\n--- GESTOR DE PLAYLIST (Equipo 2) ---" << endl;
+        cout << "1. Insertar cancion al INICIO" << endl;
+        cout << "2. Insertar cancion al FINAL" << endl;
+        cout << "3. Buscar cancion" << endl;
+        cout << "4. Ver Primero y Ultimo" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Elija una opcion: ";
+        cin >> opcion;
 
+        if (cin.fail()) {
+            cin.clear(); // Limpia el error
+            fflush(stdin); // Limpia el buffer (importante en Dev-C++)
+            cout << "Error: Por favor, ingrese un numero valido para el menu." << endl;
+            continue;
+        }
 
-    cout << "\nEjecucion finalizada correctamente." << endl;
+        switch (opcion) {
+            case 1:
+                cout << "Nombre de la cancion: ";
+                fflush(stdin); // 
+                getline(cin, cancion);
+                miPlaylist.insertarInicio(cancion);
+                break;
+
+            case 2:
+                cout << "Nombre de la cancion: ";
+                fflush(stdin);
+                getline(cin, cancion);
+                miPlaylist.insertarFinal(cancion);
+                break;
+
+            case 3:
+                cout << "Cancion a buscar: ";
+                fflush(stdin);
+                getline(cin, cancion);
+                if (miPlaylist.buscar(cancion)) {
+                    cout << "¡Si esta en la lista!" << endl;
+                } else {
+                    cout << "No se encontro." << endl;
+                }
+                break;
+
+            case 4:
+                miPlaylist.consultarPrimeroUltimo();
+                break;
+
+            case 0:
+                cout << "Saliendo del programa..." << endl;
+                break;
+
+            default:
+                cout << "Opcion no valida." << endl;
+        }
+
+    } while (opcion != 0);
+
     return 0;
 }
