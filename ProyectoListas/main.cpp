@@ -34,31 +34,61 @@ public:
     }
 
     void insertarInicio(T valor) {
-        // TODO Equipo 1: Lógica aquí
+        // TODO Equipo 1: Lï¿½gica aquï¿½
     }
 
     void insertarFinal(T valor) {
-        // TODO Equipo 1: Lógica aquí (Actualizar puntero 'ultimo')
+        // TODO Equipo 1: Lï¿½gica aquï¿½ (Actualizar puntero 'ultimo')
     }
 
+// 1. Buscar valor
     bool buscar(T valor) {
-        // TODO Equipo 1: Lógica aquí
+        Nodo<T>* actual = primero;
+        while (actual != nullptr) {
+            if (actual->info == valor) return true;
+            actual = actual->siguiente;
+        }
         return false;
     }
 
+    // 2. Eliminar valor (Cuidado con los punteros)
     void eliminar(T valor) {
-        // TODO Equipo 1: Lógica aquí
+        if (primero == nullptr) return;
+        Nodo<T>* actual = primero;
+        Nodo<T>* anterior = nullptr;
+
+        while (actual != nullptr && actual->info != valor) {
+            anterior = actual;
+            actual = actual->siguiente;
+        }
+
+        if (actual != nullptr) {
+            if (actual == primero) {
+                primero = primero->siguiente;
+                if (primero == nullptr) ultimo = nullptr;
+            } else {
+                anterior->siguiente = actual->siguiente;
+                if (actual == ultimo) ultimo = anterior;
+            }
+            delete actual;
+            cout << "Eliminado correctamente." << endl;
+        }
     }
 
+    // 3. Mostrar lista
     void mostrarLista() {
-        // TODO Equipo 1: Lógica aquí
+        Nodo<T>* actual = primero;
+        while (actual != nullptr) {
+            cout << actual->info << " -> ";
+            actual = actual->siguiente;
+        }
+        cout << "NULL" << endl;
     }
 
+    // 4. Consultar primero y ultimo
     void consultarPrimeroUltimo() {
-        if (primero != 0 && ultimo != 0) {
-            cout << "Primero: " << primero->info << " | Ultimo: " << ultimo->info << endl;
-        } else {
-            cout << "La lista esta vacia." << endl;
+        if (primero != nullptr && ultimo != nullptr) {
+            cout << "Primero: " << primero->info << ", Ultimo: " << ultimo->info << endl;
         }
     }
 };
@@ -183,7 +213,7 @@ public:
 	}
 
     void mostrarInicioAFin() {
-        // Verificamos si la lista está vacía
+        // Verificamos si la lista estï¿½ vacï¿½a
         if (primero == 0) {
             cout << "La lista esta vacia\n";
             return;
@@ -204,7 +234,7 @@ public:
     }
 
     void mostrarFinAInicio() {
-        // Verificamos si la lista está vacía
+        // Verificamos si la lista estï¿½ vacï¿½a
         if (ultimo == 0) {
             cout << "La lista esta vacia\n";
             return;
@@ -285,7 +315,7 @@ int main() {
                 fflush(stdin);
                 getline(cin, cancion);
                 if (miPlaylist.buscar(cancion)) {
-                    cout << "¡Si esta en la lista!" << endl;
+                    cout << "ï¿½Si esta en la lista!" << endl;
                 } else {
                     cout << "No se encontro." << endl;
                 }
