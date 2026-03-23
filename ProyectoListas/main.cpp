@@ -288,24 +288,27 @@ public:
 
 
 // =====================================================================
-//                 ZONA DE PRUEBAS (MAIN)
+//                 ZONA DE PRUEBAS (MAIN Y MENUS)
 // =====================================================================
 
 int main() {
-    ListaSimple<string> playlistSimple;
-    ListaDoble<string> playlistDoble;
+    // INVERSIÓN DE TIPOS DE DATOS (Templates)
+    ListaSimple<int> playlistSimple;    // Equipo 1 usa números (IDs)
+    ListaDoble<string> playlistDoble;   // Equipo 2 usa textos (Nombres)
     
     int opcionPrincipal;
     int opcionSub;
-    string cancion;
+    
+    int idCancion;  // Variable para el equipo 1
+    string cancion; // Variable para el equipo 2
 
     do {
         // MENU GIGANTE PRINCIPAL
         cout << "\n===============================================" << endl;
         cout << "       SISTEMA GESTOR DE PLAYLISTS" << endl;
         cout << "===============================================" << endl;
-        cout << "1. Probar Lista Simple (Equipo 1)" << endl;
-        cout << "2. Probar Lista Doble (Equipo 2)" << endl;
+        cout << "1. Probar Lista Simple (IDs - Int)" << endl;
+        cout << "2. Probar Lista Doble (Nombres - String)" << endl;
         cout << "0. Salir de la aplicacion" << endl;
         cout << "Elija un entorno de prueba: ";
         cin >> opcionPrincipal;
@@ -319,13 +322,13 @@ int main() {
 
         switch (opcionPrincipal) {
             case 1:
-                // SUBMENU EQUIPO 1 (LISTA SIMPLE)
+                // SUBMENU EQUIPO 1 (LISTA SIMPLE - ENTEROS)
                 do {
                     cout << "\n--- GESTOR DE PLAYLIST SIMPLE (Equipo 1) ---" << endl;
-                    cout << "1. Insertar cancion al INICIO" << endl;
-                    cout << "2. Insertar cancion al FINAL" << endl;
-                    cout << "3. Buscar cancion" << endl;
-                    cout << "4. Eliminar cancion" << endl;
+                    cout << "1. Insertar ID de cancion al INICIO" << endl;
+                    cout << "2. Insertar ID de cancion al FINAL" << endl;
+                    cout << "3. Buscar ID de cancion" << endl;
+                    cout << "4. Eliminar ID de cancion" << endl;
                     cout << "5. Mostrar Playlist" << endl;
                     cout << "6. Ver Primero y Ultimo" << endl;
                     cout << "0. Volver al Menu Principal" << endl;
@@ -338,25 +341,29 @@ int main() {
 
                     switch (opcionSub) {
                         case 1:
-                            cout << "Nombre de la cancion: ";
-                            fflush(stdin); getline(cin, cancion);
-                            playlistSimple.insertarInicio(cancion);
+                            cout << "Ingrese el ID de la cancion (numero): ";
+                            cin >> idCancion;
+                            if (cin.fail()) { cin.clear(); fflush(stdin); cout << "Error: Debe ser un numero.\n"; break; }
+                            playlistSimple.insertarInicio(idCancion);
                             break;
                         case 2:
-                            cout << "Nombre de la cancion: ";
-                            fflush(stdin); getline(cin, cancion);
-                            playlistSimple.insertarFinal(cancion);
+                            cout << "Ingrese el ID de la cancion (numero): ";
+                            cin >> idCancion;
+                            if (cin.fail()) { cin.clear(); fflush(stdin); cout << "Error: Debe ser un numero.\n"; break; }
+                            playlistSimple.insertarFinal(idCancion);
                             break;
                         case 3:
-                            cout << "Cancion a buscar: ";
-                            fflush(stdin); getline(cin, cancion);
-                            if (playlistSimple.buscar(cancion)) cout << "¡Si esta en la lista!" << endl;
+                            cout << "ID a buscar: ";
+                            cin >> idCancion;
+                            if (cin.fail()) { cin.clear(); fflush(stdin); break; }
+                            if (playlistSimple.buscar(idCancion)) cout << "¡Si esta en la lista!" << endl;
                             else cout << "No se encontro." << endl;
                             break;
                         case 4:
-                            cout << "Cancion a eliminar: ";
-                            fflush(stdin); getline(cin, cancion);
-                            playlistSimple.eliminar(cancion);
+                            cout << "ID a eliminar: ";
+                            cin >> idCancion;
+                            if (cin.fail()) { cin.clear(); fflush(stdin); break; }
+                            playlistSimple.eliminar(idCancion);
                             break;
                         case 5:
                             playlistSimple.mostrarLista();
@@ -374,7 +381,7 @@ int main() {
                 break;
 
             case 2:
-                // SUBMENU EQUIPO 2 (LISTA DOBLE)
+                // SUBMENU EQUIPO 2 (LISTA DOBLE - STRINGS)
                 do {
                     cout << "\n--- GESTOR DE PLAYLIST DOBLE (Equipo 2) ---" << endl;
                     cout << "1. Insertar cancion al INICIO" << endl;
