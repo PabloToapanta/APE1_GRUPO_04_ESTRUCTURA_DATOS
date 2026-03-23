@@ -271,84 +271,155 @@ public:
 // =====================================================================
 
 int main() {
-    ListaDoble<string> miPlaylist;
-    int opcion;
+    ListaSimple<string> playlistSimple;
+    ListaDoble<string> playlistDoble;
+    
+    int opcionPrincipal;
+    int opcionSub;
     string cancion;
 
     do {
-        cout << "\n--- GESTOR DE PLAYLIST (Equipo 2) ---" << endl;
-        cout << "1. Insertar cancion al INICIO" << endl;
-        cout << "2. Insertar cancion al FINAL" << endl;
-        cout << "3. Buscar cancion" << endl;
-        cout << "4. Eliminar cancion" << endl;
-        cout << "5. Mostrar de Inicio a Fin" << endl;
-        cout << "6. Mostrar de Fin a Inicio" << endl;
-        cout << "7. Ver Primero y Ultimo" << endl;
-        cout << "0. Salir" << endl;
-        cout << "Elija una opcion: ";
-        cin >> opcion;
+        // MENU GIGANTE PRINCIPAL
+        cout << "\n===============================================" << endl;
+        cout << "       SISTEMA GESTOR DE PLAYLISTS" << endl;
+        cout << "===============================================" << endl;
+        cout << "1. Probar Lista Simple (Equipo 1)" << endl;
+        cout << "2. Probar Lista Doble (Equipo 2)" << endl;
+        cout << "0. Salir de la aplicacion" << endl;
+        cout << "Elija un entorno de prueba: ";
+        cin >> opcionPrincipal;
 
         if (cin.fail()) {
             cin.clear(); 
             fflush(stdin); 
-            cout << "Error: Por favor, ingrese un numero valido para el menu." << endl;
+            cout << "Error: Opcion invalida." << endl;
             continue;
         }
 
-        switch (opcion) {
+        switch (opcionPrincipal) {
             case 1:
-                cout << "Nombre de la cancion: ";
-                fflush(stdin); 
-                getline(cin, cancion);
-                miPlaylist.insertarInicio(cancion);
+                // SUBMENU EQUIPO 1 (LISTA SIMPLE)
+                do {
+                    cout << "\n--- GESTOR DE PLAYLIST SIMPLE (Equipo 1) ---" << endl;
+                    cout << "1. Insertar cancion al INICIO" << endl;
+                    cout << "2. Insertar cancion al FINAL" << endl;
+                    cout << "3. Buscar cancion" << endl;
+                    cout << "4. Eliminar cancion" << endl;
+                    cout << "5. Mostrar Playlist" << endl;
+                    cout << "6. Ver Primero y Ultimo" << endl;
+                    cout << "0. Volver al Menu Principal" << endl;
+                    cout << "Elija una opcion: ";
+                    cin >> opcionSub;
+
+                    if (cin.fail()) {
+                        cin.clear(); fflush(stdin); continue;
+                    }
+
+                    switch (opcionSub) {
+                        case 1:
+                            cout << "Nombre de la cancion: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistSimple.insertarInicio(cancion);
+                            break;
+                        case 2:
+                            cout << "Nombre de la cancion: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistSimple.insertarFinal(cancion);
+                            break;
+                        case 3:
+                            cout << "Cancion a buscar: ";
+                            fflush(stdin); getline(cin, cancion);
+                            if (playlistSimple.buscar(cancion)) cout << "¡Si esta en la lista!" << endl;
+                            else cout << "No se encontro." << endl;
+                            break;
+                        case 4:
+                            cout << "Cancion a eliminar: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistSimple.eliminar(cancion);
+                            break;
+                        case 5:
+                            playlistSimple.mostrarLista();
+                            break;
+                        case 6:
+                            playlistSimple.consultarPrimeroUltimo();
+                            break;
+                        case 0:
+                            cout << "Volviendo al menu principal..." << endl;
+                            break;
+                        default:
+                            cout << "Opcion no valida." << endl;
+                    }
+                } while (opcionSub != 0);
                 break;
 
             case 2:
-                cout << "Nombre de la cancion: ";
-                fflush(stdin);
-                getline(cin, cancion);
-                miPlaylist.insertarFinal(cancion);
-                break;
+                // SUBMENU EQUIPO 2 (LISTA DOBLE)
+                do {
+                    cout << "\n--- GESTOR DE PLAYLIST DOBLE (Equipo 2) ---" << endl;
+                    cout << "1. Insertar cancion al INICIO" << endl;
+                    cout << "2. Insertar cancion al FINAL" << endl;
+                    cout << "3. Buscar cancion" << endl;
+                    cout << "4. Eliminar cancion" << endl;
+                    cout << "5. Mostrar de Inicio a Fin" << endl;
+                    cout << "6. Mostrar de Fin a Inicio" << endl;
+                    cout << "7. Ver Primero y Ultimo" << endl;
+                    cout << "0. Volver al Menu Principal" << endl;
+                    cout << "Elija una opcion: ";
+                    cin >> opcionSub;
 
-            case 3:
-                cout << "Cancion a buscar: ";
-                fflush(stdin);
-                getline(cin, cancion);
-                if (miPlaylist.buscar(cancion)) {
-                    cout << "�Si esta en la lista!" << endl;
-                } else {
-                    cout << "No se encontro." << endl;
-                }
-                break;
+                    if (cin.fail()) {
+                        cin.clear(); fflush(stdin); continue;
+                    }
 
-            case 4:
-                cout << "Cancion a eliminar: ";
-                fflush(stdin);
-                getline(cin, cancion);
-                miPlaylist.eliminar(cancion);
-                break;
-
-            case 5:
-                miPlaylist.mostrarInicioAFin();
-                break;
-
-            case 6:
-                miPlaylist.mostrarFinAInicio();
-                break;
-
-            case 7:
-                miPlaylist.consultarPrimeroUltimo();
+                    switch (opcionSub) {
+                        case 1:
+                            cout << "Nombre de la cancion: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistDoble.insertarInicio(cancion);
+                            break;
+                        case 2:
+                            cout << "Nombre de la cancion: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistDoble.insertarFinal(cancion);
+                            break;
+                        case 3:
+                            cout << "Cancion a buscar: ";
+                            fflush(stdin); getline(cin, cancion);
+                            if (playlistDoble.buscar(cancion)) cout << "¡Si esta en la lista!" << endl;
+                            else cout << "No se encontro." << endl;
+                            break;
+                        case 4:
+                            cout << "Cancion a eliminar: ";
+                            fflush(stdin); getline(cin, cancion);
+                            playlistDoble.eliminar(cancion);
+                            break;
+                        case 5:
+                            playlistDoble.mostrarInicioAFin();
+                            break;
+                        case 6:
+                            playlistDoble.mostrarFinAInicio();
+                            break;
+                        case 7:
+                            playlistDoble.consultarPrimeroUltimo();
+                            break;
+                        case 0:
+                            cout << "Volviendo al menu principal..." << endl;
+                            break;
+                        default:
+                            cout << "Opcion no valida." << endl;
+                    }
+                } while (opcionSub != 0);
                 break;
 
             case 0:
-                cout << "Saliendo del programa..." << endl;
+                cout << "Saliendo del sistema definitivo... ¡Hasta luego!" << endl;
                 break;
 
             default:
-                cout << "Opcion no valida." << endl;
+                cout << "Opcion no valida. Elija 1, 2 o 0." << endl;
         }
 
-    } while (opcion != 0);
+    } while (opcionPrincipal != 0);
 
     return 0;
 }
