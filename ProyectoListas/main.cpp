@@ -34,11 +34,32 @@ public:
     }
 
     void insertarInicio(T valor) {
-        // TODO Equipo 1: L�gica aqu�
+        // TODO Equipo 1: Lógica aquí
+        Nodo<T>* nuevo = new Nodo<T>(valor); // Creamos el nuevo nodo en memoria
+        
+        // Si la lista está vacía, el nuevo nodo es tanto el primero como el último
+        if (primero == 0) {
+            primero = nuevo;
+            ultimo = nuevo;
+        } else {
+            // Si ya hay nodos, el 'siguiente' del nuevo nodo apunta al que antes era el primero
+            nuevo->siguiente = primero;
+            primero = nuevo; // Ahora el primero es oficialmente el nuevo nodo
+        }
     }
 
     void insertarFinal(T valor) {
-        // TODO Equipo 1: L�gica aqu� (Actualizar puntero 'ultimo')
+        Nodo<T>* nuevo = new Nodo<T>(valor); 
+        
+        // Si la lista está vacía, la lógica es idéntica a insertar al inicio
+        if (primero == 0) {
+            primero = nuevo;
+            ultimo = nuevo;
+        } else {
+            // Aquí se cumple la regla de actualizar el puntero 'ultimo'
+            ultimo->siguiente = nuevo; // El último actual ahora se enlaza al nuevo nodo
+            ultimo = nuevo;            // El nuevo nodo se convierte en el último oficial
+        }
     }
 
 // 1. Buscar valor
